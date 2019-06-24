@@ -49,6 +49,29 @@
             WHERE title=#{title}
         </if>
     </select>
+
+    <!-- 在进行数据查询的时候，发现有些查询的内容总在不断重复，所以可以定义为一个重复引用的标记 -->
+    <sql id="selectBase">
+         SELECT nid,title,content FROM news
+    </sql>
+    <select id="findByIds" resultType="News" parameterType="java.lang.Long">
+        <include refid="selectBase"/>
+        <where>
+            nid IN
+            <foreach collection="array" open="(" close=")" separator="," item="ele">
+              #{ele}
+            </foreach>
+        </where>
+    </select>
+    <delete id="doRemoveByIds" parameterType="java.lang.Long">
+        DELETE FROM news
+        <where>
+            nid IN
+            <foreach collection="array" open="(" close=")" separator="," item="ele">
+                #{ele}
+            </foreach>
+        </where>
+    </delete>
     <select id="findAllCondition" resultType="News" parameterType="java.util.Map">
         SELECT nid,title FROM news
         <where>

@@ -6,9 +6,7 @@ import org.apache.ibatis.session.ResultContext;
 import org.apache.ibatis.session.ResultHandler;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TestNews {
     @Test
@@ -82,6 +80,25 @@ public class TestNews {
     public void testDeletet() throws Exception {
         System.out.println("数据删除：" + MyBatisSessionFactory.getSession()
                 .update("com.yootk.mapper.NewsNS.doRemove", 3L));
+        MyBatisSessionFactory.getSession().commit();
+        MyBatisSessionFactory.close();
+    }
+    @Test
+    public void testFindByIds() throws Exception {
+        Set<Long> ids = new HashSet<>() ;
+        ids.add(1L) ;
+        ids.add(2L) ;
+        System.out.println(MyBatisSessionFactory.getSession()
+            .selectList("com.yootk.mapper.NewsNS.findByIds", ids.toArray()));
+        MyBatisSessionFactory.close();
+    }
+    @Test
+    public void testDeleteByIds() throws Exception {
+        Set<Long> ids = new HashSet<>() ;
+        ids.add(1L) ;
+        ids.add(2L) ;
+        System.out.println(MyBatisSessionFactory.getSession()
+                .update("com.yootk.mapper.NewsNS.doRemoveByIds", ids.toArray()));
         MyBatisSessionFactory.getSession().commit();
         MyBatisSessionFactory.close();
     }
