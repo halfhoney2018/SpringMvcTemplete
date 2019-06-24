@@ -4,7 +4,7 @@
 <!-- 定义所有的SQL语句的映射， 对于本实体而言相关的所有的SQL代码都在此定义 -->
 <mapper namespace="com.yootk.mapper.NewsNS">   <!-- SSM整合的时候，这个命名空间异常重要 -->
     <!-- 编写增加的操作语句，其中id随意定义，只要有意义即可 -->
-    <insert id="doCreate" parameterType="com.yootk.mybatis.vo.News">
+    <insert id="doCreate" parameterType="News">
         INSERT INTO news(title,content) VALUES (#{title},#{content}) ;
     </insert>
 </mapper>
