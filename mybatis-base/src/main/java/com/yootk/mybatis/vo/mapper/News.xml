@@ -2,16 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 定义所有的SQL语句的映射， 对于本实体而言相关的所有的SQL代码都在此定义 -->
-<mapper namespace="com.yootk.mapper.NewsNS">
-    <resultMap id="NewsMap" type="News">    <!-- id就是以后引用的主要标记 -->
-        <id column="c_nid" property="nid"/> <!-- column指定列名称，property指定属性名称 -->
-        <id column="c_title" property="title"/> <!-- column指定列名称，property指定属性名称 -->
-        <id column="c_content" property="content"/> <!-- column指定列名称，property指定属性名称 -->
-    </resultMap>
-    <insert id="doCreate" parameterType="News" keyColumn="c_nid" keyProperty="nid" useGeneratedKeys="true">
-        INSERT INTO t_news(c_title,c_content) VALUES (#{title},#{content}) ;
+<mapper namespace="com.yootk.mapper.NewsNS">   <!-- SSM整合的时候，这个命名空间异常重要 -->
+    <!-- 编写增加的操作语句，其中id随意定义，只要有意义即可 -->
+    <insert id="doCreate" parameterType="News" keyProperty="nid" keyColumn="nid" useGeneratedKeys="true">
+        INSERT INTO news VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">,</trim>
     </insert>
-    <select id="findById" parameterType="java.lang.Long" resultMap="NewsMap">
-        SELECT c_nid ,c_title ,c_content  FROM t_news WHERE c_nid=#{wodenid} ;
+    <update id="doEdit" parameterType="News">
+        UPDATE news SET title=#{title},content=#{content} WHERE nid=#{nid}
+    </update>
+    <delete id="doRemove" parameterType="java.lang.Long">
+        DELETE FROM news WHERE nid=#{suibianxiemingzi}
+    </delete>
+    <select id="findById" parameterType="java.lang.Long" resultType="News">
+        SELECT nid,title,content FROM news WHERE nid=#{wodenid} ;
+    </select>
+    <select id="findAll" resultType="News">
+        SELECT nid,title,content FROM news ;
+    </select>
+    <select id="findAllTitle" resultType="News">
+        SELECT nid,title FROM news ;
+    </select>
+    <select id="findSplit" resultType="News" parameterType="java.util.Map">
+        SELECT nid,title,content FROM news WHERE ${column} LIKE #{keyword} LIMIT #{start},#{lineSize} ;
+    </select>
+    <select id="getAllCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM news ;
     </select>
 </mapper>
