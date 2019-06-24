@@ -6,5 +6,14 @@
     <!-- 编写增加的操作语句，其中id随意定义，只要有意义即可 -->
     <insert id="doCreate" parameterType="News">
         INSERT INTO news(title,content) VALUES (#{title},#{content}) ;
+        <selectKey keyProperty="nid" keyColumn="nid" resultType="java.lang.Long" order="AFTER">
+            SELECT LAST_INSERT_ID() ;
+        </selectKey>
     </insert>
+    <update id="doEdit" parameterType="News">
+        UPDATE news SET title=#{title},content=#{content} WHERE nid=#{nid}
+    </update>
+    <delete id="doRemove" parameterType="java.lang.Long">
+        DELETE FROM news WHERE nid=#{suibianxiemingzi}
+    </delete>
 </mapper>

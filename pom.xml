@@ -32,6 +32,7 @@
         <!-- 定义资源与profile配置 -->
         <profiles.dir>src/main/profiles</profiles.dir>   <!-- 定义profiles父路径 -->
         <resources.dir>src/main/resources</resources.dir>   <!-- 定义resources父路径 -->
+        <java.dir>src/main/java</java.dir>   <!-- 定义java父路径 -->
     </properties>
     <profiles>    <!-- 明确的进行具体的资源名称的配置，这个名称是在maven打包的时候使用的名称 -->
         <profile>   <!-- 定义具体的profile引用名称 -->
@@ -116,6 +117,14 @@
                 <!-- 此处的属性是profile中统一定义的路径的名称，不同的配置文件有不同的子目录 -->
                 <directory>${profile.dir}</directory>
                 <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>${java.dir}</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.class</include>
+                </includes>
             </resource>
             <resource>
                 <directory>${resources.dir}</directory>
