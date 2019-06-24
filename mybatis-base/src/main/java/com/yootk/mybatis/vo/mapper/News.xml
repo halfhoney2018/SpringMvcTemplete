@@ -36,8 +36,21 @@
             WHERE title=#{title}
         </if>
     </select>
-    <select id="findAllTitle" resultType="News">
-        SELECT nid,title FROM news ;
+    <select id="findAllCondition" resultType="News" parameterType="java.util.Map">
+        SELECT nid,title FROM news
+        <where>
+            <choose>
+                <when test="nid != null and title !=null and content !=null">
+                    nid=#{nid} AND title=#{title} AND content=#{content}
+                </when>
+                <when test="nid != null and title !=null and content==null">
+                    nid=#{nid} AND title=#{title}
+                </when>
+                <when test="nid != null and title ==null and content!=null">
+                    nid=#{nid} AND content=#{content}
+                </when>
+            </choose>
+        </where>
     </select>
     <select id="findSplit" resultType="News" parameterType="java.util.Map">
         SELECT nid,title,content FROM news

@@ -39,6 +39,17 @@ public class TestNews {
     }
 
     @Test
+    public void testSelectCondition() throws Exception {
+        Map<String,Object> params = new HashMap<>() ;
+        params.put("nid",2L) ;
+        params.put("title","今天是一个好日子") ;
+//        params.put("content","NOContent") ;
+        System.out.println(MyBatisSessionFactory.getSession()
+                .selectList("com.yootk.mapper.NewsNS.findAllCondition",params));
+        MyBatisSessionFactory.close();
+    }
+
+    @Test
     public void testSplit() throws Exception {
         Map<String,Object> splitParams = new HashMap<String,Object>() ; // 保存分页相关参数
         splitParams.put("column", "title");
