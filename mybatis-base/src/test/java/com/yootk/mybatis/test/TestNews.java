@@ -54,7 +54,10 @@ public class TestNews {
 
     @Test
     public void testList() throws Exception {
-        List<News> all = MyBatisSessionFactory.getSession().selectList("com.yootk.mapper.NewsNS.findAll");
+        Map<String,Object> params = new HashMap<>() ;
+        params.put("title","今天是一个好日子") ;
+        List<News> all = MyBatisSessionFactory.getSession()
+                .selectList("com.yootk.mapper.NewsNS.findAll",params);
         System.out.println(all);
         MyBatisSessionFactory.close();
     }
@@ -86,7 +89,7 @@ public class TestNews {
     public void testAdd() throws Exception {
         News vo = new News();
         vo.setTitle("今天是一个好日子");
-        vo.setContent("是一个充满朝气的人生第一天开始！");
+        // vo.setContent("是一个充满朝气的人生第一天开始！");
         System.out.println("增加数据行数：" + MyBatisSessionFactory.getSession()
                 .delete("com.yootk.mapper.NewsNS.doCreate", vo));
         System.out.println("增加后的nid主键：" + vo.getNid());

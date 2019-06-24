@@ -5,8 +5,21 @@
 <mapper namespace="com.yootk.mapper.NewsNS">   <!-- SSM整合的时候，这个命名空间异常重要 -->
     <!-- 编写增加的操作语句，其中id随意定义，只要有意义即可 -->
     <insert id="doCreate" parameterType="News" keyProperty="nid" keyColumn="nid" useGeneratedKeys="true">
-        INSERT INTO news VALUES
-        <trim prefix="(" suffix=")" suffixOverrides=",">,</trim>
+        INSERT INTO news(title,content) VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title == null">
+                'NOTitle',
+            </if>
+            <if test="title != null">
+                #{title},
+            </if>
+            <if test="content == null">
+                'NOContent',
+            </if>
+            <if test="content != null">
+                #{content},
+            </if>
+        </trim>
     </insert>
     <update id="doEdit" parameterType="News">
         UPDATE news SET title=#{title},content=#{content} WHERE nid=#{nid}
@@ -17,16 +30,26 @@
     <select id="findById" parameterType="java.lang.Long" resultType="News">
         SELECT nid,title,content FROM news WHERE nid=#{wodenid} ;
     </select>
-    <select id="findAll" resultType="News">
-        SELECT nid,title,content FROM news ;
+    <select id="findAll" resultType="News" parameterType="Map">
+        SELECT nid,title,content FROM news
+        <if test="title != null and title != &quot;&quot;">
+            WHERE title=#{title}
+        </if>
     </select>
     <select id="findAllTitle" resultType="News">
         SELECT nid,title FROM news ;
     </select>
     <select id="findSplit" resultType="News" parameterType="java.util.Map">
-        SELECT nid,title,content FROM news WHERE ${column} LIKE #{keyword} LIMIT #{start},#{lineSize} ;
+        SELECT nid,title,content FROM news
+        <if test="column != null and keyword != null and column != &quot;&quot; and keyword != &quot;&quot;">
+            WHERE ${column} LIKE #{keyword}
+        </if>
+        LIMIT #{start},#{lineSize} ;
     </select>
-    <select id="getAllCount" resultType="java.lang.Long">
-        SELECT COUNT(*) FROM news ;
+    <select id="getAllCount" resultType="java.lang.Long" parameterType="java.util.Map">
+        SELECT COUNT(*) FROM news
+        <if test="column != null and keyword != null and column != &quot;&quot; and keyword != &quot;&quot;">
+            WHERE ${column} LIKE #{keyword}
+        </if>
     </select>
 </mapper>
