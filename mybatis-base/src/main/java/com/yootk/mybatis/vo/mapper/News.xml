@@ -16,4 +16,19 @@
     <delete id="doRemove" parameterType="java.lang.Long">
         DELETE FROM news WHERE nid=#{suibianxiemingzi}
     </delete>
+    <select id="findById" parameterType="java.lang.Long" resultType="News">
+        SELECT nid,title,content FROM news WHERE nid=#{wodenid} ;
+    </select>
+    <select id="findAll" resultType="News">
+        SELECT nid,title,content FROM news ;
+    </select>
+    <select id="findAllTitle" resultType="News">
+        SELECT nid,title FROM news ;
+    </select>
+    <select id="findSplit" resultType="News" parameterType="java.util.Map">
+        SELECT nid,title,content FROM news WHERE ${column} LIKE #{keyword} LIMIT #{start},#{lineSize} ;
+    </select>
+    <select id="getAllCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM news ;
+    </select>
 </mapper>

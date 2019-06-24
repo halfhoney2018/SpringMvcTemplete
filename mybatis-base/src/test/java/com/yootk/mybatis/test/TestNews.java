@@ -2,9 +2,68 @@ package com.yootk.mybatis.test;
 
 import com.yootk.mybatis.util.MyBatisSessionFactory;
 import com.yootk.mybatis.vo.News;
+import org.apache.ibatis.session.ResultContext;
+import org.apache.ibatis.session.ResultHandler;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class TestNews {
+    @Test
+    public void testSelect() throws Exception {
+        Map<Long,String> infos = new HashMap<>() ;  // key存储nid、value存储title
+        MyBatisSessionFactory.getSession()
+                .select("com.yootk.mapper.NewsNS.findAll" , new ResultHandler<News>() {
+                    @Override
+                    public void handleResult(ResultContext resultContext) {
+                        News news = (News) resultContext.getResultObject() ;
+                        infos.put(news.getNid(),news.getTitle()) ;
+                    }
+                });
+        System.out.println(infos);
+        MyBatisSessionFactory.close();
+    }
+    @Test
+    public void testSelectMap() throws Exception {
+        Map<Object, Object> title = MyBatisSessionFactory.getSession().selectMap("com.yootk.mapper.NewsNS.findById", 9L, "nid");
+        System.out.println(title);
+        MyBatisSessionFactory.close();
+    }
+    @Test
+    public void testSelectTitle() throws Exception {
+        Map<Object, Object> title = MyBatisSessionFactory.getSession().selectMap("com.yootk.mapper.NewsNS.findAllTitle","nid");
+        System.out.println(title);
+        MyBatisSessionFactory.close();
+    }
+
+    @Test
+    public void testSplit() throws Exception {
+        Map<String,Object> splitParams = new HashMap<String,Object>() ; // 保存分页相关参数
+        splitParams.put("column", "title");
+        splitParams.put("keyword", "%%");
+        splitParams.put("start", 5); // (currentPage - 1) * lineSize
+        splitParams.put("lineSize", 5);
+        List<News> all = MyBatisSessionFactory.getSession().selectList("com.yootk.mapper.NewsNS.findSplit",splitParams);
+        Long count = MyBatisSessionFactory.getSession().selectOne("com.yootk.mapper.NewsNS.getAllCount",splitParams);
+        System.out.println("【分页数据】" + all);
+        System.out.println("【数据行统计】" + count);
+        MyBatisSessionFactory.close();
+    }
+
+    @Test
+    public void testList() throws Exception {
+        List<News> all = MyBatisSessionFactory.getSession().selectList("com.yootk.mapper.NewsNS.findAll");
+        System.out.println(all);
+        MyBatisSessionFactory.close();
+    }
+    @Test
+    public void testGet() throws Exception {
+        News vo = MyBatisSessionFactory.getSession().selectOne("com.yootk.mapper.NewsNS.findById", 9L);
+        System.out.println(vo);
+        MyBatisSessionFactory.close();
+    }
     @Test
     public void testDeletet() throws Exception {
         System.out.println("数据删除：" + MyBatisSessionFactory.getSession()
