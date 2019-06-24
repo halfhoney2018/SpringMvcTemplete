@@ -116,8 +116,8 @@ public class TestNews {
     @Test
     public void testAdd() throws Exception {
         News vo = new News();
-        vo.setTitle("今天是一个好日子");
-        // vo.setContent("是一个充满朝气的人生第一天开始！");
+        vo.setTitle("开心学习");
+        vo.setContent("学习是不断进步的源泉！");
         System.out.println("增加数据行数：" + MyBatisSessionFactory.getSession()
                 .delete("com.yootk.mapper.NewsNS.doCreate", vo));
         System.out.println("增加后的nid主键：" + vo.getNid());
