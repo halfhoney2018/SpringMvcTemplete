@@ -22,7 +22,20 @@
         </trim>
     </insert>
     <update id="doEdit" parameterType="News">
-        UPDATE news SET title=#{title},content=#{content} WHERE nid=#{nid}
+        UPDATE news
+        <set>
+            <if test="title != null and title != &quot;&quot;">
+                title=#{title},
+            </if>
+            <if test="content != null and content != &quot;&quot;">
+                content=#{content},
+            </if>
+        </set>
+        <where>
+          <if test="nid != null and nid != 0">
+              nid=#{nid}
+          </if>
+        </where>
     </update>
     <delete id="doRemove" parameterType="java.lang.Long">
         DELETE FROM news WHERE nid=#{suibianxiemingzi}

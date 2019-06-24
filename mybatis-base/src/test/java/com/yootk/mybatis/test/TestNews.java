@@ -89,8 +89,8 @@ public class TestNews {
     public void testEdit() throws Exception {
         News vo = new News();
         vo.setTitle("人生最舒服的日子？");
-        vo.setContent("你是个屌丝，梦里成为富翁");
-        vo.setNid(9L); // 修改数据时需要设置准确的编号
+//        vo.setContent("你是个屌丝，梦里成为富翁");
+//        vo.setNid(1L); // 修改数据时需要设置准确的编号
         System.out.println("数据修改：" + MyBatisSessionFactory.getSession().update("com.yootk.mapper.NewsNS.doEdit", vo));
         MyBatisSessionFactory.getSession().commit();
         MyBatisSessionFactory.close();
