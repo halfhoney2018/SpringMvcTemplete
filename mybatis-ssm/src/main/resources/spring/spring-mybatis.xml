@@ -11,5 +11,11 @@
         <property name="dataSource" ref="dataSource"/>  <!-- 配置数据源 -->
         <!-- 设置MyBatis核心配置文件的路径 -->
         <property name="configLocation" value="classpath:mybatis/mybatis.cfg.xml"/>
+        <property name="mapperLocations" value="classpath:com/yootk/ssm/vo/mapper/*.xml"/>
+    </bean>
+    <!-- 2、追加一个映射配置转换的处理工具类 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.yootk.ssm.dao"/>    <!-- DAO接口所在包名称 -->
+        <property name="sqlSessionFactoryBeanName" value="sessionFactory"/> <!-- SessionFactory-Bean名称 -->
     </bean>
 </beans>
