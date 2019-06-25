@@ -15,4 +15,5 @@
     <aop:aspectj-autoproxy/>    <!-- 启用Annotation注解支持 -->
     <import resource="spring-datasource.xml"/>
     <import resource="spring-transaction.xml"/>
+    <import resource="spring-mybatis.xml"/>
 </beans>

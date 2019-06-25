@@ -1,6 +1,6 @@
 package com.yootk.ssm.util.validate;
 
-import com.ytinf.util.bean.MessageUtil;
+import com.yootk.ssm.util.bean.MessageUtil;
 import org.springframework.context.MessageSource;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
