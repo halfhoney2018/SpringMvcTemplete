@@ -1,11 +1,16 @@
 package com.yootk.ssm.dao;
 
+
 import com.yootk.ssm.vo.News;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.SelectKey;
 
 import java.util.List;
 import java.util.Map;
 
 public interface INewsDAO {
+//    @Insert("INSERT INTO news(title,content) VALUES (#{title},#{content})")
+//    @SelectKey(before = false,keyProperty ="nid",keyColumn ="nid" ,resultType = java.lang.Long.class,statement ="SELECT LAST_INSERT_ID()")
     public boolean doCreate(News vo) ;
     public News findById(Long id) ;
     /**

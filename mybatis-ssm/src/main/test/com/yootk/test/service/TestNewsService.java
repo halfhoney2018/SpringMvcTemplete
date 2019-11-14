@@ -23,7 +23,9 @@ public class TestNewsService {
     }
     @Test
     public void testGet() {
-        System.out.println(this.newsService.get(3L));
+        System.out.println(this.newsService.get(1L));
+        System.out.println(this.newsService.get(1L));
+        System.out.println(this.newsService.get(1L));
     }
     @Test
     public void testList() {

@@ -10,6 +10,7 @@
     <modules>
         <module>mybatis-base</module>
         <module>mybatis-ssm</module>
+        <module>mybatis-generator</module>
     </modules>
     <packaging>pom</packaging>
     <properties>
@@ -19,7 +20,7 @@
         <junit.version>4.12</junit.version>
         <jstl.version>1.2</jstl.version>
         <mybatis.version>3.5.1</mybatis.version>
-        <mysql.version>5.1.47</mysql.version>
+        <mysql.version>8.0.16</mysql.version>
         <log4j.version>2.11.2</log4j.version>
         <slf4j.version>1.7.26</slf4j.version>
         <commons-pool2.version>2.6.2</commons-pool2.version>
@@ -31,6 +32,7 @@
         <commons-io.version>2.6</commons-io.version>
         <spring-data-redis.version>2.1.9.RELEASE</spring-data-redis.version>
         <mybatis-spring.version>2.0.1</mybatis-spring.version>
+        <durid.version>1.1.17</durid.version>
         <!-- 定义项目构建的相关环境属性 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -69,6 +71,12 @@
     </profiles>
     <dependencyManagement>
         <dependencies>
+<!--            durid-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${durid.version}</version>
+            </dependency>
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
@@ -232,6 +240,22 @@
     <build>
         <finalName>mybatis</finalName>         <!-- 表示打包生成的名称 -->
         <resources>
+
+<!--            防止idea  读取不到java目录下的文件-->
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.yml</include>
+                    <include>**/*.html</include>
+                </includes>
+            </resource>
             <resource>
                 <!-- 此处的属性是profile中统一定义的路径的名称，不同的配置文件有不同的子目录 -->
                 <directory>${profile.dir}</directory>

@@ -19,7 +19,8 @@ public class NewsAction extends AbstractAction {
     }
     @RequestMapping("add")
     public ModelAndView add(News vo) {
-        System.out.println("【新闻增加业务】" + this.newsService.add(vo));
-        return null ;
+        ModelAndView modelAndView = new ModelAndView(super.getMessage("news.add.show"));
+        modelAndView.addObject("istrue",this.newsService.add(vo));
+        return modelAndView ;
     }
 }

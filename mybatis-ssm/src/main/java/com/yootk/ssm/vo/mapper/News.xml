@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 定义所有的SQL语句的映射， 对于本实体而言相关的所有的SQL代码都在此定义 -->
 <mapper namespace="com.yootk.ssm.dao.INewsDAO">   <!-- SSM整合的时候，这个命名空间异常重要 -->
-    <cache eviction="FIFO" flushInterval="200" readOnly="true"/>
+<!--    <cache eviction="FIFO" flushInterval="200" readOnly="true"/>-->
     <!-- 编写增加的操作语句，其中id随意定义，只要有意义即可 -->
     <insert id="doCreate" parameterType="News" keyProperty="nid" keyColumn="nid" useGeneratedKeys="true">
         INSERT INTO news(title,content) VALUES
