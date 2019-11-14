@@ -44,6 +44,12 @@
     <select id="findById" parameterType="java.lang.Long" resultType="News">
         SELECT nid,title,content FROM news WHERE nid=#{wodenid} ;
     </select>
+    <select id="findByIdTitle" parameterType="java.util.Map" resultType="News" >
+        SELECT nid,title,content FROM news
+        <where>
+            nid=#{nid} AND title=#{title}
+        </where>
+    </select>
     <select id="findAll" resultType="News" parameterType="Map">
         SELECT nid,title,content FROM news
         <if test="title != null and title != &quot;&quot;">

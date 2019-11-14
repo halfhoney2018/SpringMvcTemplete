@@ -23,12 +23,33 @@ public class TestNewsService {
     }
     @Test
     public void testGet() {
-        System.out.println(this.newsService.get(1L));
-        System.out.println(this.newsService.get(1L));
-        System.out.println(this.newsService.get(1L));
+
+        System.out.println(this.newsService.get(9L));
+        System.out.println(this.newsService.get(9L));
+    }
+    @Test
+    public void testGet2() {
+        System.out.println(this.newsService.get(18L));
+        System.out.println(this.newsService.get(18L,"1573376478742"));
+
     }
     @Test
     public void testList() {
         System.out.println(this.newsService.list("title","%开心%",1,10));
+    }
+    @Test
+    public void update(){
+        News vo=new News();
+        vo.setNid(1L);
+        vo.setTitle("修改完成后的标题");
+        vo.setContent("996");
+        System.out.println(this.newsService.update(vo));
+        System.out.println(this.newsService.get(1L));
+    }
+    @Test
+    public void delete(){
+        System.out.println(this.newsService.get(7L));
+        System.out.println(this.newsService.remove(7L));
+        System.out.println(this.newsService.get(7L));
     }
 }

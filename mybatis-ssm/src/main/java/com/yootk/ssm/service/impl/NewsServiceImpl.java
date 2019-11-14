@@ -12,6 +12,23 @@ import java.util.Map;
 public class NewsServiceImpl implements INewsService {
     @Autowired
     private INewsDAO newsDAO ;
+
+    @Override
+    public Boolean remove(Long id) {
+        return this.newsDAO.doRemove(id);
+    }
+
+    @Override
+    public News update(News vo) {
+
+        if (this.newsDAO.doEdit(vo)) {
+            vo.setTitle("【UPDATE】" + vo.getTitle());
+            vo.setContent("【UPDATE】" + vo.getContent());
+            return vo;
+        }
+        return null;
+    }
+
     @Override
     public boolean add(News vo) {
         return this.newsDAO.doCreate(vo);
@@ -20,6 +37,15 @@ public class NewsServiceImpl implements INewsService {
     @Override
     public News get(long id) {
         return this.newsDAO.findById(id);
+    }
+
+    @Override
+    public News get(long id, String title) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("nid",id);
+        map.put("title",title);
+
+        return this.newsDAO.findByIdTitle(map);
     }
 
     @Override

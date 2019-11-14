@@ -9,10 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface INewsDAO {
-//    @Insert("INSERT INTO news(title,content) VALUES (#{title},#{content})")
-//    @SelectKey(before = false,keyProperty ="nid",keyColumn ="nid" ,resultType = java.lang.Long.class,statement ="SELECT LAST_INSERT_ID()")
+    public boolean doRemove(Long id);
+    public boolean doEdit(News vo);
     public boolean doCreate(News vo) ;
     public News findById(Long id) ;
+    public News findByIdTitle(Map<String, Object> params);
     /**
      * 进行数据的分页显示处理操作
      * @param params 可以传递的参数内容如下：
